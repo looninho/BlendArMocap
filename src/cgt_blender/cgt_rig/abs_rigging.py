@@ -37,7 +37,8 @@ class BpyRigging(ABC):
         """ Applies constraints to bones targeting objects. """
         for key, pair in constraint_dict.items():
             provider = objects.get_object_by_name(key)
-            bone = self.pose_bones[pair[0]]
+            pair0= pair[0].replace('_ik', '') if '_ik' in pair[0] else pair[0]
+            bone = self.pose_bones[pair0]
             constraint_name = pair[1]
             args = pair[2:]
             constraints.add_constraint(bone, provider, constraint_name, args, overwrite)
